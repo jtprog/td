@@ -108,3 +108,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Настройки бота
+
+TOKEN = '855883347:AAHxvaX7DSchTqeXA59q3yqbQw74ZHixVM4'
+
+PROXY_URL = 'https://telegg.ru/orig/bot'
