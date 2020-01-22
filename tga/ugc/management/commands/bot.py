@@ -68,6 +68,13 @@ def do_count(update: Update, context: CallbackContext):
     )
 
 
+@log_errors
+def do_help(update: Update, context: CallbackContext):
+    update.message.reply_text(
+        text=f'Это бот канала IT Каждый День!',
+    )
+
+
 class Command(BaseCommand):
     help = 'Телеграм-бот'
 
@@ -92,9 +99,8 @@ class Command(BaseCommand):
 
         message_handler = MessageHandler(Filters.text, do_echo)
         updater.dispatcher.add_handler(message_handler)
-
-        message_handler2 = CommandHandler('count', do_count)
-        updater.dispatcher.add_handler(message_handler2)
+        updater.dispatcher.add_handler(CommandHandler('count', do_count))
+        updater.dispatcher.add_handler(CommandHandler('help', do_help))
 
         # 3 -- запустить бесконечную обработку входящих сообщений
         updater.start_polling()
