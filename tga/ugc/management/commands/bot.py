@@ -32,19 +32,19 @@ def do_echo(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     text = update.message.text
 
-    p, _ = Profile.objects.get_or_create(
-        external_id=chat_id,
-        defaults={
-            'name': update.message.from_user.username,
-        }
-    )
-    m = Message(
-        profile=p,
-        text=text,
-    )
-    m.save()
+    # p, _ = Profile.objects.get_or_create(
+    #     external_id=chat_id,
+    #     defaults={
+    #         'name': update.message.from_user.username,
+    #     }
+    # )
+    # m = Message(
+    #     profile=p,
+    #     text=text,
+    # )
+    # m.save()
 
-    reply_text = f'Ваш ID = {chat_id}\nMessage ID = {m.pk}\n{text}'
+    reply_text = f'Ваш ID = {chat_id}\n{text}'
     update.message.reply_text(
         text=reply_text,
     )
@@ -54,14 +54,15 @@ def do_echo(update: Update, context: CallbackContext):
 def do_count(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
 
-    p, _ = Profile.objects.get_or_create(
-        external_id=chat_id,
-        defaults={
-            'name': update.message.from_user.username,
-        }
-    )
-    count = Message.objects.filter(profile=p).count()
+    # p, _ = Profile.objects.get_or_create(
+    #     external_id=chat_id,
+    #     defaults={
+    #         'name': update.message.from_user.username,
+    #     }
+    # )
+    # count = Message.objects.filter(profile=p).count()
 
+    count = 0
     update.message.reply_text(
         text=f'У вас {count} сообщений',
     )
@@ -79,7 +80,7 @@ class Command(BaseCommand):
         bot = Bot(
             request=request,
             token=settings.TOKEN,
-            base_url=settings.PROXY_URL,
+            base_url=getattr(settings, 'PROXY_URL', None),
         )
         print(bot.get_me())
 
