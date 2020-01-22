@@ -79,7 +79,7 @@ class Command(BaseCommand):
         bot = Bot(
             request=request,
             token=settings.TOKEN,
-            base_url=settings.PROXY_URL,
+            base_url=getattr(settings, 'PROXY_URL', None),
         )
         print(bot.get_me())
 
